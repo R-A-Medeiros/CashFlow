@@ -9,12 +9,23 @@ namespace CashFlow.API.Controllers;
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Register([FromBody] RequestRegisteredExpenseJson request)
+    public IActionResult Register([FromBody] RequestRegisterExpenseJson request)
     {
-        var useCase = new RegisterExpenseUseCase();
-        
-        var response = useCase.Execute(request);
+        try
+        {
+            var useCase = new RegisterExpenseUseCase();
 
-        return Created(string.Empty, response);
+            var response = useCase.Execute(request);
+
+            return Created(string.Empty, response);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "unknowm error");
+        }
     }
 }
