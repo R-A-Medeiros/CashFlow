@@ -16,27 +16,18 @@ public class RegisterExpenseUseCase
 
     public void Validate(RequestRegisterExpenseJson request)
     {
-        var titleIsEmpty = string.IsNullOrEmpty(request.Title);
-        if (titleIsEmpty)
-        {
-            throw new ArgumentException("The title is required.");
+        var validator = new RegisterExpenseValidator();
+
+        var result = validator.Validate(request);
+
+       if (result.IsValid == false)
+       {
+            var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
+
+            throw new ArgumentException(errorMessage);
         }
 
-        if (request.Amout <= 0)
-        {
-            throw new ArgumentException("The Amout must be greater than zero.");
-        }
 
-        var result = DateTime.Compare(request.Date, DateTime.UtcNow);
-        if (result > 0)
-        {
-            throw new ArgumentException("Expenses cannot be for the future.");
-        }
 
-        var paymentTypeIsValid = Enum.IsDefined(typeof(PaymentType), request.PaymentType);
-        if (paymentTypeIsValid == false)
-        {
-            throw new ArgumentException("Payment Type is not valid.");
-        }
     }
 }
