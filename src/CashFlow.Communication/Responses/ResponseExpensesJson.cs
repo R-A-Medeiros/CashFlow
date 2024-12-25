@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CashFlow.Communication.Responses
+namespace CashFlow.Communication.Responses;
+public class ResponseExpensesJson
 {
-    class ResponseExpensesJson
-    {
-    }
+    public List<ResponseShortExpenseJson> Expenses { get; set; } = [];
 }

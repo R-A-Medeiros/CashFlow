@@ -3,5 +3,5 @@
 namespace CashFlow.Application.UseCases.Expenses.GetAll;
 public interface IGetAllExpenseUseCase
 {
-    Task<ResponseExpenseJson> Execute();
+    Task<ResponseExpensesJson> Execute();
 }
