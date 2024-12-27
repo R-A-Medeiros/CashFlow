@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Responses;
 using CashFlow.Domain.Repositories.Expenses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CashFlow.Exception.ExceptionBase;
 
 namespace CashFlow.Application.UseCases.Expenses.GetById;
 public class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
@@ -20,6 +16,11 @@ public class GetExpenseByIdUseCase : IGetExpenseByIdUseCase
     public async Task<ResponseExpenseJson> Execute(long id)
     {
         var result = await _repository.GetById(id);
+
+        if (result is null)
+        {
+            throw new NotFoundException("Expense not Found");
+        }
 
         return _mapper.Map<ResponseExpenseJson>(result);
     }
