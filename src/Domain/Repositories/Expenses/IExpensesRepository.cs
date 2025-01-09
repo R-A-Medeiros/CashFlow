@@ -12,4 +12,5 @@ public interface IExpensesRepository
     /// <param name="id"></param>
     /// <returns></returns>
     Task<bool> Delete(long id);
+    
 }
