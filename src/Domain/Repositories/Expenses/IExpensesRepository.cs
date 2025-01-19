@@ -12,5 +12,6 @@ public interface IExpensesRepository
     /// <param name="id"></param>
     /// <returns></returns>
     Task<bool> Delete(long id);
+    Task<List<Expense>> FilterByMonth(DateOnly date);
     
 }

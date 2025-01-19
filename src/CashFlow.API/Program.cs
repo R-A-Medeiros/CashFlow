@@ -2,6 +2,7 @@
 using CashFlow.API.Filters;
 using CashFlow.Application;
 using CashFlow.Infra;
+using Microsoft.OpenApi.Models;
 
 namespace CashFlow.API;
 
@@ -15,6 +16,14 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddSwaggerGen(options => {
+            options.MapType<DateOnly>(() => new OpenApiSchema
+            {
+                Type = "string",
+                Format = "date"
+            });
+        });
 
         builder.Configuration.GetConnectionString("Connection");
 
