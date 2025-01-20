@@ -21,7 +21,8 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
         {
             return [];
         }
-
+        var document = CreateDocument(month);
+        var page = Createpage(document);
         return [];
     }
 
@@ -36,5 +37,19 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
         style!.Font.Name = FontHelper.ROBOTO_REGULAR;
 
         return document;
+    }
+
+    private Section Createpage(Document document)
+    {
+        var section = document.AddSection();
+        section.PageSetup = document.DefaultPageSetup.Clone();
+
+        section.PageSetup.PageFormat = PageFormat.A4;
+        section.PageSetup.LeftMargin = 40;
+        section.PageSetup.RightMargin = 40;
+        section.PageSetup.TopMargin = 80;
+        section.PageSetup.BottomMargin = 40;
+
+        return section;
     }
 }
