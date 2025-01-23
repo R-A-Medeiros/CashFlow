@@ -1,6 +1,7 @@
 ﻿using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
 using CashFlow.Domain.Repositories.Expenses;
 using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using PdfSharp.Fonts;
 
@@ -18,22 +19,25 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
 
     public async Task<byte[]> Execute(DateOnly month)
     {
-        var expense = await _repository.FilterByMonth(month);
-        if(expense.Count == 0)
+        var expenses = await _repository.FilterByMonth(month);
+        if(expenses.Count == 0)
         {
             return [];
         }
         var document = CreateDocument(month);
         var page = Createpage(document);
 
-        var paragraph = page.AddParagraph();
-        var title = string.Format("Total spent in", month.ToString("Y"));
+        CreatedheaderWithProfilePhotoAndName(page);
 
-        paragraph.AddFormattedText(title, new Font { Name = FontHelper.ROBOTO_REGULAR, Size = 15});
+        var totalExpenses = expenses.Sum(e => e.Amount);
 
-        paragraph.AddLineBreak();
-        var totalExpenses = expense.Sum(e => e.Amount);
-        paragraph.AddFormattedText($"{totalExpenses} {CURRENCY_SYMBOL}", new Font { Name = FontHelper.WORKSANS_BLACK, Size = 50});
+        CreateTotalSpentSection(page, month, totalExpenses);
+
+        foreach (var expense in expenses)
+        {
+            var table = CreateExpenseTable(page);
+        }
+
 
         return RenderDocument(document);
     }
@@ -78,5 +82,47 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
         renderer.PdfDocument.Save(file);
 
         return file.ToArray();
+    }
+
+    private void CreatedheaderWithProfilePhotoAndName(Section page)
+    {
+        var table = page.AddTable();
+        table.AddColumn();
+        table.AddColumn("300");
+
+        var row = table.AddRow();
+        row.Cells[0].AddImage(""); // caminho da imagem
+
+        row.Cells[1].AddParagraph("Hey, Rinaldo Alves");
+        row.Cells[1].Format.Font = new Font { Name = FontHelper.ROBOTO_BLACK, Size = 16 };
+        row.Cells[1].VerticalAlignment = MigraDoc.DocumentObjectModel.Tables.VerticalAlignment.Center;
+
+    }
+
+    private void CreateTotalSpentSection(Section page, DateOnly month, decimal totalExpenses)
+    {
+        var paragraph = page.AddParagraph();
+        paragraph.Format.SpaceBefore = "40";
+        paragraph.Format.SpaceAfter = "40";
+
+        var title = string.Format("Total spent in", month.ToString("Y"));
+
+        paragraph.AddFormattedText(title, new Font { Name = FontHelper.ROBOTO_REGULAR, Size = 15 });
+
+        paragraph.AddLineBreak();
+       
+        paragraph.AddFormattedText($"{totalExpenses} {CURRENCY_SYMBOL}", new Font { Name = FontHelper.WORKSANS_BLACK, Size = 50 });
+    }
+
+    private Table CreateExpenseTable(Section page)
+    {
+        var table = page.AddTable();
+
+        table.AddColumn("195").Format.Alignment = ParagraphAlignment.Left;
+        table.AddColumn("80").Format.Alignment = ParagraphAlignment.Center;
+        table.AddColumn("120").Format.Alignment = ParagraphAlignment.Center;
+        table.AddColumn("120").Format.Alignment = ParagraphAlignment.Right;
+
+        return table;
     }
 }
