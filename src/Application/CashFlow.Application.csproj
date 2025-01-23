@@ -25,6 +25,7 @@
     <PackageReference Include="ClosedXML" Version="0.104.2" />
     <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="PDFsharp-MigraDoc" Version="6.2.0-preview-2" />
   </ItemGroup>
 
   <ItemGroup>
