@@ -55,18 +55,6 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
 
         return file.ToArray();
     }
-
-    private string ConvertPaymentType(PaymentType payment)
-    {
-        return payment switch
-        {
-            PaymentType.Cash => "Dinheiro",
-            PaymentType.CreditCard => "Cartão de Crédito",
-            PaymentType.DebitCard => "Cartão de Débito",
-            PaymentType.EletronicTransfer => "PIX",
-            _ => string.Empty
-        };
-    }
     private void InsertHeader(IXLWorksheet worksheet)
     {
        
