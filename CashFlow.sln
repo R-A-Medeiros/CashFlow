@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlow.Exception", "src\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlow.Infra", "src\CashFlow.Infra\CashFlow.Infra.csproj", "{57EFA7D6-1DE1-4B87-8513-EA77F6AFBA76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Tests", "testes\Validators.Tests\Validators.Tests.csproj", "{BE843B27-A123-435A-947E-B3AB88F2FFB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "testes\CommonTestUtilities\CommonTestUtilities.csproj", "{C211ED1A-2317-4A8A-BFE8-478D22A13A7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{57EFA7D6-1DE1-4B87-8513-EA77F6AFBA76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57EFA7D6-1DE1-4B87-8513-EA77F6AFBA76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57EFA7D6-1DE1-4B87-8513-EA77F6AFBA76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE843B27-A123-435A-947E-B3AB88F2FFB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE843B27-A123-435A-947E-B3AB88F2FFB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE843B27-A123-435A-947E-B3AB88F2FFB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE843B27-A123-435A-947E-B3AB88F2FFB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C211ED1A-2317-4A8A-BFE8-478D22A13A7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C211ED1A-2317-4A8A-BFE8-478D22A13A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C211ED1A-2317-4A8A-BFE8-478D22A13A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C211ED1A-2317-4A8A-BFE8-478D22A13A7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,8 @@ Global
 		{133DA938-A520-4242-B1CF-E9825459316A} = {0ADF0DA7-61D1-4444-A2AD-216B93E134A7}
 		{4933CDDA-8A63-40B7-AEF9-2BA1E26E1627} = {0ADF0DA7-61D1-4444-A2AD-216B93E134A7}
 		{57EFA7D6-1DE1-4B87-8513-EA77F6AFBA76} = {0ADF0DA7-61D1-4444-A2AD-216B93E134A7}
+		{BE843B27-A123-435A-947E-B3AB88F2FFB4} = {485B99B5-8512-446F-874D-5E0DB32933CC}
+		{C211ED1A-2317-4A8A-BFE8-478D22A13A7F} = {485B99B5-8512-446F-874D-5E0DB32933CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {784B7696-F1A8-4337-AD0C-0A48A1106A21}
