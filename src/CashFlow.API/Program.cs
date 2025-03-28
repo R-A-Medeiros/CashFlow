@@ -1,4 +1,5 @@
 
+using System.Text;
 using CashFlow.API.Filters;
 using CashFlow.Application;
 using CashFlow.Infra;
@@ -47,7 +48,7 @@ public class Program
                 ValidateIssuer = true,
                 ValidateAudience = false,
                 ClockSkew = new TimeSpan(0),
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey!))
             };
         });
 
