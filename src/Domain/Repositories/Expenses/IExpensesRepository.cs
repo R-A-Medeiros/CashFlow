@@ -4,14 +4,9 @@ namespace CashFlow.Domain.Repositories.Expenses;
 public interface IExpensesRepository
 {
     Task Add(Expense expense);
-    Task<List<Expense>> GetAll();
-    Task<Expense?> GetById(long id);
-    /// <summary>
-    /// This function returns TRUE if the deletion was succesful
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    Task<bool> Delete(long id);
-    Task<List<Expense>> FilterByMonth(DateOnly date);
+    Task<List<Expense>> GetAll(Entities.User user);
+    Task<Expense?> GetById(Entities.User user, long id);
+    Task Delete(long id);
+    Task<List<Expense>> FilterByMonth(Entities.User user, DateOnly date);
     
 }

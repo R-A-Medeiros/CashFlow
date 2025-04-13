@@ -4,5 +4,5 @@ namespace CashFlow.Domain.Repositories.Expenses;
 public interface IExpenseUpdateOnlyRepository
 {
     void Update(Expense expense);
-    Task<Expense?> GetById(long id);
+    Task<Expense?> GetById(Domain.Entities.User user, long id);
 }
