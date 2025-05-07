@@ -60,13 +60,19 @@ internal class ExpensesRepository : IExpensesRepository, IExpenseUpdateOnlyRepos
 
     async Task<Expense?> IExpensesRepository.GetById(User user, long id)
     {
-        return await _dbContext.Expenses
+        return await GetFullExpense()
                      .AsNoTracking()
                      .FirstOrDefaultAsync(ex => ex.Id == id && ex.UserId == user.Id);
     }
      async Task<Expense?> IExpenseUpdateOnlyRepository.GetById(User user, long id)
     {
-        return await _dbContext.Expenses.FirstOrDefaultAsync(ex => ex.Id == id && ex.UserId == user.Id);
+        return await GetFullExpense()
+            .FirstOrDefaultAsync(ex => ex.Id == id && ex.UserId == user.Id);
     }
 
+    private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Expense, ICollection<Tag>> GetFullExpense()
+    {
+        return _dbContext.Expenses
+                  .Include(expense => expense.Tags);
+    }
 }

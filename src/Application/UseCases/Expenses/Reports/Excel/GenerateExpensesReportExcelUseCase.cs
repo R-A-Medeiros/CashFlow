@@ -1,6 +1,7 @@
 ﻿
 using CashFlow.Communication.Enums;
 using CashFlow.Domain.Repositories.Expenses;
+using CashFlow.Domain.Services.LoggedUser;
 using ClosedXML.Excel;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -9,15 +10,19 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
 {
     private const string CURRENCY_SYMBOL = "R$";
     private readonly IExpensesRepository _repository;
-    public GenerateExpensesReportExcelUseCase(IExpensesRepository repository)
+    private readonly ILoggedUser _loggedUser;
+    public GenerateExpensesReportExcelUseCase(IExpensesRepository repository, ILoggedUser loggedUser)
     {
         _repository = repository;
+        _loggedUser = loggedUser;
     }
     public async Task<byte[]> Execute(DateOnly month)
     {
-        var expenses = await _repository.FilterByMonth(month);
+        var loggedUser = await _loggedUser.Get();
 
-        if(expenses.Count == 0)
+        var expenses = await _repository.FilterByMonth(loggedUser, month);
+
+        if (expenses.Count == 0)
         {
             return [];
         }
@@ -57,7 +62,7 @@ public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUs
     }
     private void InsertHeader(IXLWorksheet worksheet)
     {
-       
+
         worksheet.Cell("A1").Value = "Titulo";
         worksheet.Cell("B1").Value = "Data";
         worksheet.Cell("C1").Value = "Forma de Pagamento";
